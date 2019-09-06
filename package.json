@@ -1,0 +1,31 @@
+{
+  "name": "pro-d3-source-code",
+  "version": "0.0.1",
+  "description": "Code for the Pro D3.js book for APress",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/golodhros/pro-d3-source-code.git"
+  },
+  "keywords": [
+    "d3.js",
+    "charts",
+    "testing",
+    "tdd"
+  ],
+  "author": "golodhros@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/golodhros/pro-d3-source-code/issues"
+  },
+  "homepage": "https://github.com/golodhros/pro-d3-source-code#readme",
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1"
+  }
+}

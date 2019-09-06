@@ -1,0 +1,114 @@
+// Listing 3-8. Bar Chart Specification in Vega
+{
+  "$schema": "https://vega.github.io/schema/vega/v4.json",
+  "width": 800,
+  "height": 400,
+  "padding": 10,
+
+  "data": [
+    {
+      "name": "table",
+      "values": [
+        {"letter": "A", "frequency": 0.08167 },
+        {"letter": "B", "frequency": 0.01492 },
+        {"letter": "C", "frequency": 0.02782 },
+        {"letter": "D", "frequency": 0.04253 },
+        {"letter": "E", "frequency": 0.12702 },
+        {"letter": "F", "frequency": 0.02288 },
+        {"letter": "G", "frequency": 0.02015 },
+        {"letter": "H", "frequency": 0.06094 },
+        {"letter": "I", "frequency": 0.06966 },
+        {"letter": "J", "frequency": 0.00153 },
+        {"letter": "K", "frequency": 0.00772 },
+        {"letter": "L", "frequency": 0.04025 },
+        {"letter": "M", "frequency": 0.02406 },
+        {"letter": "N", "frequency": 0.06749 },
+        {"letter": "O", "frequency": 0.07507 },
+        {"letter": "P", "frequency": 0.01929 },
+        {"letter": "Q", "frequency": 0.00095 },
+        {"letter": "R", "frequency": 0.05987 },
+        {"letter": "S", "frequency": 0.06327 },
+        {"letter": "T", "frequency": 0.09056 },
+        {"letter": "U", "frequency": 0.02758 },
+        {"letter": "V", "frequency": 0.00978 },
+        {"letter": "W", "frequency": 0.0236 },
+        {"letter": "X", "frequency": 0.0015 },
+        {"letter": "Y", "frequency": 0.01974 },
+        {"letter": "Z", "frequency": 0.00074 }
+      ]
+    }
+  ],
+
+  "signals": [
+    {
+      "name": "tooltip",
+      "value": {},
+      "on": [
+        {"events": "rect:mouseover", "update": "datum"},
+        {"events": "rect:mouseout",  "update": "{}"}
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "xscale",
+      "type": "band",
+      "domain": {"data": "table", "field": "letter"},
+      "range": "width",
+      "padding": 0.1,
+      "round": true
+    },
+    {
+      "name": "yscale",
+      "domain": {"data": "table", "field": "frequency"},
+      "nice": true,
+      "range": "height"
+    }
+  ],
+
+  "axes": [
+    { "orient": "bottom", "scale": "xscale" },
+    { "orient": "left", "scale": "yscale" }
+  ],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data":"table"},
+      "encode": {
+        "enter": {
+          "x": {"scale": "xscale", "field": "letter"},
+          "width": {"scale": "xscale", "band": 1},
+          "y": {"scale": "yscale", "field": "frequency"},
+          "y2": {"scale": "yscale", "value": 0}
+        },
+        "update": {
+          "fill": {"value": "steelblue"}
+        },
+        "hover": {
+          "fill": {"value": "red"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "align": {"value": "center"},
+          "baseline": {"value": "bottom"},
+          "fill": {"value": "#333"}
+        },
+        "update": {
+          "x": {"scale": "xscale", "signal": "tooltip.letter", "band": 0.5},
+          "y": {"scale": "yscale", "signal": "tooltip.frequency", "offset": -2},
+          "text": {"signal": "tooltip.frequency"},
+          "fillOpacity": [
+            {"test": "datum === tooltip", "value": 0},
+            {"value": 1}
+          ]
+        }
+      }
+    }
+  ]
+}
